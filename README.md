@@ -1,1 +1,1 @@
-TuLet Mobile App
+TuLet Mobile Application
