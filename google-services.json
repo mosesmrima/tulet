@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "478195519062",
+    "project_id": "tulet-bf5ee",
+    "storage_bucket": "tulet-bf5ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478195519062:android:b7b26b5c97d942f91875f7",
+        "android_client_info": {
+          "package_name": "com.tulet.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9GoKKdTADS7WnRUocNCOIGFhGlwDQd9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
