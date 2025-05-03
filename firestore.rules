@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow users to read all properties
+    match /properties/{propertyId} {
+      allow read: if true;
+      
+      // Only allow create if the user is authenticated and setting themselves as owner
+      allow create: if request.auth != null && 
+                      request.resource.data.userId == request.auth.uid;
+      
+      // Only allow updates and deletes by the property owner
+      allow update, delete: if request.auth != null && 
+                              resource.data.userId == request.auth.uid;
+    }
+    
+    // Allow users to manage only their own favorites
+    match /favorites/{favoriteId} {
+      // Only allow reads of user's own favorites
+      allow read: if request.auth != null && 
+                    resource.data.userId == request.auth.uid;
+      
+      // Only allow create if user is setting themselves as owner
+      allow create: if request.auth != null && 
+                      request.resource.data.userId == request.auth.uid;
+      
+      // Only allow deletes by the favorite owner
+      allow delete: if request.auth != null && 
+                      resource.data.userId == request.auth.uid;
+    }
+    
+    // Allow users to read and write their own user profile data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && 
+                           request.auth.uid == userId;
+    }
+  }
+} 

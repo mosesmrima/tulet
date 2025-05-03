@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Default rule - deny access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+    
+    // Allow users to upload property images to their own folder
+    match /property_images/{userId}/{fileName} {
+      // Allow authenticated users to read all property images
+      allow read: if request.auth != null;
+      
+      // Allow users to upload to their own folder
+      allow write: if request.auth != null && 
+                     request.auth.uid == userId &&
+                     request.resource.size < 5 * 1024 * 1024 && // 5MB max
+                     request.resource.contentType.matches('image/.*');
+    }
+    
+    // Allow public read access for property images
+    match /property_images/{userId}/{fileName} {
+      allow read: if true;
+    }
+  }
+} 
