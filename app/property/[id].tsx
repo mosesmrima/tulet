@@ -104,7 +104,10 @@ export default function PropertyDetailScreen() {
       );
       
       // Navigate to the chat screen with the conversation ID
-      router.push(`/chat/${conversationId}`);
+          router.push({
+        pathname: "/chat/[id]",
+        params: { id: conversationId }
+      });
     } catch (error: any) {
       Alert.alert("Error", error.message || "Could not start conversation");
     }
@@ -184,7 +187,7 @@ export default function PropertyDetailScreen() {
                 onSnapToItem={(index) => setActiveImageIndex(index)}
                 renderItem={({ item }) => (
                   <Image
-                    source={{ uri: item }}
+                    source={{ uri: item as string}}
                     style={styles.carouselImage}
                     contentFit="cover"
                     transition={200}
@@ -194,7 +197,7 @@ export default function PropertyDetailScreen() {
               {/* Image Pagination Indicator */}
               {property.imageUrls.length > 1 && (
                 <View style={styles.pagination}>
-                  {property.imageUrls.map((_, index) => (
+                  {property.imageUrls.map((_: any, index: any) => (
                     <View
                       key={index}
                       style={[
